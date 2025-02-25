@@ -37,10 +37,10 @@ RUN sed -i 's/ulimit -Hn/# ulimit -Hn/g' /etc/init.d/docker \
  && update-alternatives --set iptables /usr/sbin/iptables-legacy \
  && update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
 
-# btrfs storage
-ENV BTRFS_FILE=/var/lib/docker-btrfs.img
-RUN dd if=/dev/zero of=$BTRFS_FILE bs=1G count=5 \
- && echo '{"storage-driver": "btrfs"}' > /etc/docker/daemon.json
+# btrfs storage. Default to a maximum of 20GB
+ENV BTRFS_SIZE=21474836480
+ENV BTRFS_FILE=/media/docker-volume.img
+RUN echo '{"storage-driver": "btrfs"}' > /etc/docker/daemon.json
 
 # ddev
 RUN mkcert -install \
