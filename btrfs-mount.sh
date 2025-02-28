@@ -1,6 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
-set -x
+set -ex
+
+BTRFS_FILE=${1:-$BTRFS_FILE_DEFAULT}
+DATA_ROOT=${2:-$DATA_ROOT_DEFAULT}
+BTRFS_SIZE=${3:-$BTRFS_SIZE_DEFAULT}
 
 # Initialize volume file.
 if [ ! -f $BTRFS_FILE ]; then
@@ -16,6 +20,6 @@ if [ ! "$(blkid -o value -s TYPE $DEVICE)" ]; then
 fi
 
 # Mount device to dockerd data root.
-mkdir -p /var/lib/docker
-chmod 410 /var/lib/docker
-mount -o discard $DEVICE /var/lib/docker
+mkdir -p $DATA_ROOT
+chmod 410 $DATA_ROOT
+mount $DEVICE $DATA_ROOT

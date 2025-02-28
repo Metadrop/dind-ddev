@@ -27,6 +27,7 @@ RUN apt-get update -qq \
       docker-ce=5:27.* \
       ddev=1.* \
       sudo \
+      rsync \
  && rm -rf /var/lib/apt/lists/* \
  && apt-get clean -yqq \
  && apt-get autoremove -yqq -o=Dpkg::Use-Pty=0
@@ -38,8 +39,9 @@ RUN sed -i 's/ulimit -Hn/# ulimit -Hn/g' /etc/init.d/docker \
  && update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
 
 # btrfs storage. Default to a maximum of 20GB
-ENV BTRFS_SIZE=21474836480
-ENV BTRFS_FILE=/media/docker-volume.img
+ENV BTRFS_SIZE_DEFAULT=21474836480
+ENV BTRFS_FILE_DEFAULT=/media/docker-volume.img
+ENV DATA_ROOT_DEFAULT=/var/lib/docker
 RUN echo '{"storage-driver": "btrfs"}' > /etc/docker/daemon.json
 
 # ddev
