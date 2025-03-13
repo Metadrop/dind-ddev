@@ -9,7 +9,18 @@ sleep 2
 # Download images.
 sudo -u ddev /usr/bin/ddev debug download-images
 
-# TODO Remove ddev.
+# Download additional images.
+IMAGELISTS=$@
+for IMAGELIST in $IMAGELISTS; do
+  while IFS= read -r IMAGE; do
+    if [[ -z $IMAGE || "$IMAGE" == "#"* ]]; then
+      continue;
+    fi
+    docker pull $IMAGE
+  done < $IMAGELIST
+done
+
+# TODO Remove ddev?
 
 # dockerd cleanup (remove the .pid file as otherwise it prevents
 # dockerd from launching correctly inside sys container)

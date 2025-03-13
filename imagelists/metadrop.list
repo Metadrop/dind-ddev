@@ -1,0 +1,4 @@
+# metadrop.net
+
+library/redis:6-bullseye
+library/solr:8

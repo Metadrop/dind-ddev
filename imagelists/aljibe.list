@@ -1,0 +1,11 @@
+# metadrop/ddev-aljibe
+
+adminer:standalone
+ghcr.io/metadrop/aljibe-tools/backstopjs:6.3.7
+ghcr.io/metadrop/aljibe-tools/unlighthouse:0.16.2
+metadrop/docker-pa11y:latest
+patrickhulce/lhci-client:latest
+postman/newman:6-ubuntu
+selenium/node-chrome:4.8.0
+selenium/hub:4.8.0
+squidfunk/mkdocs-material:latest
