@@ -40,7 +40,7 @@ You can pass additional images lists as arguments. Some lists are provided in [i
 ddev-download-images.sh /imagelists/aljibe.list /imagelists/metadrop.list
 ```
 
-Add you custom lists to `imagelists/`. As an example, you can obtain the list of all images used by a project with:
+Add your custom lists to `imagelists/`. As an example, you can obtain the list of all images used by a project with:
 ```
 cd <path-to-ddev-project>
 ddev debug compose-config |grep -i image: | grep -v built | awk '{print $2}' | sort | uniq -u > myproject.list
@@ -78,7 +78,10 @@ docker exec dind-ddev docker image ls
 ## Publish
 
 ```
-docker login registry.metadrop.net
-docker image tag dind-ddev-images registry.metadrop.net/metadrop-group/dind-with-ddev-images/dind-with-ddev-images:latest
-docker image push registry.metadrop.net/metadrop-group/dind-with-ddev-images/dind-with-ddev-images:latest
+export GH_USER=
+export CR_PAT=
+echo $CR_PAT | docker login ghcr.io -u $GH_USER --password-stdin
+LOCAL_IMAGE=dind-ddev
+docker image tag $LOCAL_IMAGE ghcr.io/metadrop/dind-ddev/$LOCAL_IMAGE:latest
+docker push ghcr.io/metadrop/dind-ddev/$LOCAL_IMAGE:latest
 ```
